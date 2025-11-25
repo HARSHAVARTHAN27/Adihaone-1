@@ -1,6 +1,6 @@
 """
-Root Flask App for AI Personal Assistant.
-This is the single entrypoint for Vercel.
+Vercel Serverless Function for AI Personal Assistant Flask App.
+This file exports a 'handler' function for Vercel's Python runtime.
 """
 import os
 import sys
@@ -12,7 +12,7 @@ import threading
 # ----------------------------------------------------------------------------
 # Add the 'ai_assistant/backend' directory to the system path
 # so that it can find the other Python modules like free_api_processor.
-backend_path = os.path.join(os.path.dirname(__file__), 'ai_assistant', 'backend')
+backend_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ai_assistant', 'backend'))
 if backend_path not in sys.path:
     sys.path.insert(0, backend_path)
 # ----------------------------------------------------------------------------
@@ -39,7 +39,8 @@ except (ImportError, ModuleNotFoundError) as e:
 load_dotenv()
 
 # Get the path to frontend directory
-frontend_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ai_assistant', 'frontend')
+# Note: The path is now relative to the root of the project, not the api/ folder
+frontend_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'ai_assistant', 'frontend'))
 
 # Initialize Flask app with static folder configuration
 app = Flask(__name__, static_folder=frontend_path, static_url_path='')
@@ -79,7 +80,6 @@ def speak_response(text):
 @app.route('/', methods=['GET'])
 def serve_index():
     """Serve the main index.html file."""
-    # This now correctly serves the frontend from the root
     return send_from_directory(frontend_path, 'index.html')
 
 
@@ -88,9 +88,6 @@ def serve_static(path):
     """Serve static files."""
     return send_from_directory(frontend_path, path)
 
-
-# --- All your other API routes go here as they were ---
-# I will add a few key ones back in.
 
 @app.route('/api/health', methods=['GET'])
 def health():
@@ -154,7 +151,7 @@ def process_text():
             'response': 'An error occurred processing your request.'
         }), 500
 
-if __name__ == '__main__':
-    print("Starting AI Personal Assistant Backend...")
-    app.run(debug=True, port=5000)
+# Add this line to export the WSGI application for Vercel
+from vercel_wsgi import VercelWSGI
 
+handler = VercelWSGI(app)

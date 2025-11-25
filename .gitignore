@@ -1,3 +1,4 @@
 ai-assistant/backend/.env
 ai-assistant/backend/__pycache__/
 *.pyc
+.vercel
