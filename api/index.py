@@ -152,6 +152,6 @@ def process_text():
         }), 500
 
 # Add this line to export the WSGI application for Vercel
-from vercel_wsgi import VercelWSGI
+# from vercel_wsgi import VercelWSGI
 
-handler = VercelWSGI(app)
+# handler = VercelWSGI(app)
