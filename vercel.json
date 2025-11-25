@@ -1,4 +1,3 @@
 {
-  "buildCommand": "pip install -r ai_assistant/requirements.txt",
   "framework": "flask"
 }
