@@ -11,6 +11,12 @@ from dotenv import load_dotenv
 from free_api_processor import FreeAPIProcessor
 from text_to_speech import TextToSpeech
 
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Hello from Vercel Flask!"
+
 # Try to import speech recognition, but don't fail if it's not available
 try:
     from speech_recognition_module import SpeechRecognitionModule
