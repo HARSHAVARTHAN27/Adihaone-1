@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant - Powered by Groq</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🤖</span>
+                <h1>AI Assistant</h1>
+            </div>
+            <div class="header-controls">
+                <button id="voiceToggle" class="icon-btn" title="Toggle auto-speak">
+                    <span>🔊</span>
+                </button>
+                <button id="darkModeToggle" class="icon-btn" title="Dark mode">
+                    <span>🌙</span>
+                </button>
+                <button id="settingsBtn" class="icon-btn" title="Settings">
+                    <span>⚙️</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Chat Section -->
+        <main class="chat-panel">
+            <div id="chatMessages" class="chat-messages">
+                <div class="message system-message">
+                    <div class="message-bubble">
+                        <p><strong>Welcome to AI Assistant! 👋</strong></p>
+                        <p>Powered by Groq with automatic voice response and voice selection</p>
+                        <small>Type your question or use the microphone button to speak</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <input
+                        type="text"
+                        id="textInput"
+                        class="text-input"
+                        placeholder="Ask me anything..."
+                        autocomplete="off"
+                    />
+                    <button id="voiceBtn" class="voice-btn" title="Speak command">
+                        <span>🎤</span>
+                    </button>
+                    <button id="sendBtn" class="send-btn" title="Send message">
+                        <span>➤</span>
+                    </button>
+                </div>
+                <div id="voiceStatus" class="voice-status"></div>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Quick Actions -->
+            <section class="sidebar-section">
+                <h3>Quick Actions</h3>
+                <div class="quick-actions">
+                    <button class="quick-action" data-prompt="What time is it?">
+                        <span>🕐</span>
+                        <span>Time</span>
+                    </button>
+                    <button class="quick-action" data-prompt="What's today's date?">
+                        <span>📅</span>
+                        <span>Date</span>
+                    </button>
+                    <button class="quick-action" data-prompt="Tell me a joke">
+                        <span>😄</span>
+                        <span>Joke</span>
+                    </button>
+                    <button class="quick-action" data-prompt="Write a poem">
+                        <span>✍️</span>
+                        <span>Poem</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- TTS Controls -->
+            <section class="sidebar-section">
+                <h3>Voice Settings</h3>
+                <div class="control-group">
+                    <label for="voiceSelect">Voice</label>
+                    <select id="voiceSelect" class="input-field">
+                        <option value="">Loading voices...</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Speed</label>
+                    <input type="range" id="rateSlider" min="50" max="300" value="150" class="slider">
+                    <span id="rateValue">150</span>
+                </div>
+                <div class="control-group">
+                    <label>Volume</label>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="100" class="slider">
+                    <span id="volumeValue">100</span>
+                </div>
+            </section>
+
+            <!-- History -->
+            <section class="sidebar-section">
+                <h3>History</h3>
+                <button id="clearHistoryBtn" class="btn-secondary">Clear</button>
+                <div id="historyList" class="history-list"></div>
+            </section>
+
+            <!-- Status -->
+            <section class="sidebar-section">
+                <h3>Status</h3>
+                <div id="statusInfo" class="status-info">
+                    <p><small>Checking connection...</small></p>
+                </div>
+            </section>
+        </aside>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button id="closeSettingsBtn" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="modelSelect">AI Model</label>
+                    <select id="modelSelect" class="input-field">
+                        <option value="">Loading models...</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="autoSpeakCheckbox" checked>
+                        Automatically speak responses
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="closeSettingsBtn2" class="btn-primary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
