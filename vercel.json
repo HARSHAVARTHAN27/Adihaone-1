@@ -1,4 +1,7 @@
 {
-  "buildCommand": "pip install -r ai_assistant/requirements.txt",
-  "framework": "flask"
+  "buildCommand": "pip install -e .",
+  "framework": "flask",
+  "env": [
+    "PYTHONPATH=/var/task:/var/task/ai_assistant/backend"
+  ]
 }
