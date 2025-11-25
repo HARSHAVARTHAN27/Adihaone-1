@@ -11,12 +11,6 @@ from dotenv import load_dotenv
 from free_api_processor import FreeAPIProcessor
 from text_to_speech import TextToSpeech
 
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "Hello from Vercel Flask!"
-
 # Try to import speech recognition, but don't fail if it's not available
 try:
     from speech_recognition_module import SpeechRecognitionModule
@@ -32,7 +26,7 @@ load_dotenv()
 # Get the path to frontend directory
 frontend_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'frontend')
 
-# Initialize Flask app with static folder configuration
+# Initialize Flask app with static folder configuration (only once)
 app = Flask(__name__, static_folder=frontend_path, static_url_path='')
 CORS(app)
 
